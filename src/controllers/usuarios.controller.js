@@ -13,7 +13,8 @@ exports.getAllUser = async(req,res)=>{
         console.log(error)
         res.status(500).json({
             estado:0,
-            mensaje: "Ocurrio un error desconocido"
+            mensaje: "Ocurrio un error desconocido",
+            Usuarios : []
             })
     }
 }
@@ -26,18 +27,20 @@ exports.getAllUserByEmail = async(req,res)=>{
                 res.status(200).json({
                     estado:1,
                     mensaje:"Usuario encontrado",
-                    usuario:usuario
+                    usuario:[usuario]
                 })
             }else{
                 res.status(400).json({
                     estado:0,
-                    mensaje:"Usuario no encontrado"
+                    mensaje:"Usuario no encontrado",
+                    usuario:[]
                 })
             }
     }catch(error){
         res.status(500).json({
             estado:0,
-            mensaje:"Ocurrió un error desconocido"
+            mensaje:"Ocurrió un error desconocido",
+            usuario:[]
         })
         console.log(error);
     }
@@ -59,7 +62,8 @@ exports.addUser = async(req,res)=>{
                 if(usuarioEncontrado){
                     res.status(200).json({
                         estado:0,
-                        mensaje:"Usuario y/o correo ya existen"
+                        mensaje:"Usuario y/o correo ya existen",
+                        usuario:[]
                     })
                 }else{
                 //Encriptar la clave
@@ -76,7 +80,8 @@ exports.addUser = async(req,res)=>{
                 }else{
                     res.status(500).json({
                         estado:0,
-                        mensaje:"Ocurrió un error desconocido"
+                        mensaje:"Ocurrió un error desconocido",
+                        usuario:[]
                     })
                 }
                 } 
@@ -84,7 +89,8 @@ exports.addUser = async(req,res)=>{
     }catch(error){
         res.status(500).json({
             estado:0,
-            mensaje:"Ocurrió un error desconocido"
+            mensaje:"Ocurrió un error desconocido",
+            usuario:[]
         })
         console.log(error);
     }
@@ -130,19 +136,22 @@ exports.deleteUser = async(req,res)=>{
             await Usuario.deleteOne(usuario)
             res.status(200).json({
                 estado:1,
-                mensaje:"Usuario eliminado"
+                mensaje:"Usuario eliminado",
+                usuario:[]
             })
           }else{
             res.status(500).json({
                 estado:0,
-                mensaje:"Usuario no encontrado"
+                mensaje:"Usuario no encontrado",
+                usuario:[]
             })
           }
     }catch(error){
         console.log(error);
         res.status(500).json({
             estado:0,
-            mensaje:"Ocurrio un error desconocido"
+            mensaje:"Ocurrio un error desconocido",
+            usuario:[]
         })
     }
 }
